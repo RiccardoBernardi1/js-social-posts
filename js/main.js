@@ -64,6 +64,14 @@ const posts = [
 const postContainer=document.querySelector(".posts-list");
 for(let i = 0; i < posts.length; i++) {
     const post = posts[i];
+    const date=posts[i].created;
+    const dateMonth=date[5]+date[6];
+    const now=new Date;
+    const actualMonth=now.getMonth()+1;
+    const dateYear=date[0]+date[1]+date[2]+date[3];
+    const actualYear=now.getFullYear();
+    const yearsPassed=actualYear-dateYear;
+    const monthsPassed=actualMonth-dateMonth;
     const template = document.getElementById('template-post').content.cloneNode(true);
     template.querySelector('.post__text').innerHTML = post.content;
     if( post.author.image===null) {
@@ -71,9 +79,18 @@ for(let i = 0; i < posts.length; i++) {
     } else {
         template.querySelector('.profile-pic').setAttribute("src",`${post.author.image}`);
     }
+    if(yearsPassed==1){
+        template.querySelector('.post-meta__time').innerHTML = `1 anno fa`;
+    }else if(yearsPassed==0 && monthsPassed!=1){
+        template.querySelector('.post-meta__time').innerHTML = `${monthsPassed} mesi fa`;
+    }else if(monthsPassed==1){
+        template.querySelector('.post-meta__time').innerHTML = `1 mese fa`;
+    }else if(yearsPassed>1){
+        template.querySelector('.post-meta__time').innerHTML = `${yearsPassed} anno fa`;
+    }
     template.querySelector('.post-meta__author').innerHTML = post.author.name;
-    template.querySelector('.post-meta__time').innerHTML = post.created;
     template.querySelector('.post__image').innerHTML=`<img src="${post.media}" alt="${post.author.name}">`;
 
     postContainer.append(template);
 }
+

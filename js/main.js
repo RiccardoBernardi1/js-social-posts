@@ -61,6 +61,7 @@ const posts = [
     }
 ];
 
+const postsLiked=[];
 const postContainer=document.querySelector(".posts-list");
 for(let i = 0; i < posts.length; i++) {
     const template = document.getElementById('template-post').content.cloneNode(true);
@@ -74,7 +75,6 @@ for(let i = 0; i < posts.length; i++) {
     const yearsPassed=actualYear-dateYear;
     const monthsPassed=actualMonth-dateMonth;
     let likes=template.querySelector(".js-likes-counter");
-    const postsLiked=[];
     template.querySelector('.post__text').innerHTML = post.content;
     if( post.author.image===null) {
         template.querySelector('.post-meta__icon').innerHTML="LF";
@@ -107,7 +107,9 @@ for(let i = 0; i < posts.length; i++) {
         }else{
             btn.classList.remove("like-button--liked");
             likes.innerHTML=Number(likes.innerHTML)-1;;
+            postsLiked.splice(postsLiked.indexOf(id),1);
             liked=false;
+            console.log(postsLiked);
         }
     });
     console.log(postsLiked);

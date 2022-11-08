@@ -82,15 +82,8 @@ for(let i = 0; i < posts.length; i++) {
     } else {
         template.querySelector('.profile-pic').setAttribute("src",`${post.author.image}`);
     }
-    if(yearsPassed==1){
-        template.querySelector('.post-meta__time').innerHTML = `1 anno fa`;
-    }else if(yearsPassed==0 && monthsPassed!=1){
-        template.querySelector('.post-meta__time').innerHTML = `${monthsPassed} mesi fa`;
-    }else if(monthsPassed==1){
-        template.querySelector('.post-meta__time').innerHTML = `1 mese fa`;
-    }else if(yearsPassed>1){
-        template.querySelector('.post-meta__time').innerHTML = `${yearsPassed} anno fa`;
-    }
+    const italianDate = dateDay + "/" + dateMonth + "/" + dateYear
+    template.querySelector('.post-meta__time').innerHTML = `${italianDate}`;
     template.querySelector('.post-meta__author').innerHTML = post.author.name;
     likes.innerHTML = Number(post.likes);
     template.querySelector('.post__image').innerHTML=`<img src="${post.media}" alt="${post.author.name}">`;
@@ -113,8 +106,6 @@ for(let i = 0; i < posts.length; i++) {
             console.log(postsLiked);
         }
     });
-    const italianDate = dateDay + "/" + dateMonth + "/" + dateYear
-    console.log(italianDate);
     postContainer.append(template);
 }
 

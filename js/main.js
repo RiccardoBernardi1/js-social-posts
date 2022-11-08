@@ -63,6 +63,7 @@ const posts = [
 
 const postContainer=document.querySelector(".posts-list");
 for(let i = 0; i < posts.length; i++) {
+    const template = document.getElementById('template-post').content.cloneNode(true);
     const post = posts[i];
     const date=posts[i].created;
     const dateMonth=date[5]+date[6];
@@ -72,7 +73,7 @@ for(let i = 0; i < posts.length; i++) {
     const actualYear=now.getFullYear();
     const yearsPassed=actualYear-dateYear;
     const monthsPassed=actualMonth-dateMonth;
-    const template = document.getElementById('template-post').content.cloneNode(true);
+    let likes=template.querySelector(".js-likes-counter");
     template.querySelector('.post__text').innerHTML = post.content;
     if( post.author.image===null) {
         template.querySelector('.post-meta__icon').innerHTML="LF";
@@ -89,8 +90,22 @@ for(let i = 0; i < posts.length; i++) {
         template.querySelector('.post-meta__time').innerHTML = `${yearsPassed} anno fa`;
     }
     template.querySelector('.post-meta__author').innerHTML = post.author.name;
+    likes.innerHTML = Number(post.likes);
     template.querySelector('.post__image').innerHTML=`<img src="${post.media}" alt="${post.author.name}">`;
-
+    const btn=template.querySelector('.like-button');
+    let liked=false;
+    btn.addEventListener("click",function(){
+        if(liked===false){
+            btn.classList.add("like-button--liked");
+            likes.innerHTML=Number(likes.innerHTML)+1;
+            liked=true;
+        }else{
+            btn.classList.remove("like-button--liked");
+            likes.innerHTML=Number(likes.innerHTML)-1;;
+            liked=false;
+        }
+    });
+    console.log(likes.innerHTML);
     postContainer.append(template);
 }
 

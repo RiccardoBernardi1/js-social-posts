@@ -74,6 +74,7 @@ for(let i = 0; i < posts.length; i++) {
     const actualYear=now.getFullYear();
     const yearsPassed=actualYear-dateYear;
     const monthsPassed=actualMonth-dateMonth;
+    const dateDay=date[8]+date[9];
     let likes=template.querySelector(".js-likes-counter");
     template.querySelector('.post__text').innerHTML = post.content;
     if( post.author.image===null) {
@@ -112,7 +113,8 @@ for(let i = 0; i < posts.length; i++) {
             console.log(postsLiked);
         }
     });
-    console.log(postsLiked);
+    const italianDate = dateDay + "/" + dateMonth + "/" + dateYear
+    console.log(italianDate);
     postContainer.append(template);
 }
 

@@ -74,6 +74,7 @@ for(let i = 0; i < posts.length; i++) {
     const yearsPassed=actualYear-dateYear;
     const monthsPassed=actualMonth-dateMonth;
     let likes=template.querySelector(".js-likes-counter");
+    const postsLiked=[];
     template.querySelector('.post__text').innerHTML = post.content;
     if( post.author.image===null) {
         template.querySelector('.post-meta__icon').innerHTML="LF";
@@ -93,11 +94,15 @@ for(let i = 0; i < posts.length; i++) {
     likes.innerHTML = Number(post.likes);
     template.querySelector('.post__image').innerHTML=`<img src="${post.media}" alt="${post.author.name}">`;
     const btn=template.querySelector('.like-button');
+    btn.setAttribute("data-postid",post.id);
     let liked=false;
+    const id=btn.getAttribute("data-postid");
     btn.addEventListener("click",function(){
         if(liked===false){
             btn.classList.add("like-button--liked");
             likes.innerHTML=Number(likes.innerHTML)+1;
+            postsLiked.push(id);
+            console.log(postsLiked);
             liked=true;
         }else{
             btn.classList.remove("like-button--liked");
@@ -105,7 +110,7 @@ for(let i = 0; i < posts.length; i++) {
             liked=false;
         }
     });
-    console.log(likes.innerHTML);
+    console.log(postsLiked);
     postContainer.append(template);
 }
 
